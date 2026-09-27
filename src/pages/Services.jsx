@@ -1,31 +1,54 @@
-import React from 'react';
 import { Link } from 'react-router-dom';
+import Reveal from '../components/Reveal.jsx';
 
 export default function Services() {
   return (
-    <div className="page-container">
-      <h1>Our Expertise</h1>
-      <p style={{ color: 'var(--gray)', marginTop: '0.5rem' }}>Specialized rendering support for interior designers, architects, and builders.</p>
-      
-      <div className="grid">
-        <div className="card">
-          <h3>Interior Renderings</h3>
-          <p>Photorealistic lighting, textures, and spatial layouts perfect for showcasing interior design concepts before construction begins.</p>
-        </div>
-        <div className="card">
-          <h3>Exterior Visualizations</h3>
-          <p>High-fidelity exterior modeling for residential and commercial structures, integrating landscape and natural lighting.</p>
-        </div>
-        <div className="card">
-          <h3>3D Floor Plans</h3>
-          <p>Upgrading standard 2D blueprints into fully furnished, immersive 3D isometric cutaways.</p>
-        </div>
-      </div>
-      
-      <div style={{ textAlign: 'center', marginTop: '4rem' }}>
-        <h2>Ready to collaborate?</h2>
-        <Link to="/contact" className="btn-primary" style={{ display: 'inline-block', marginTop: '1rem' }}>Request a Proposal</Link>
-      </div>
-    </div>
+    <>
+      {/* ============================= PAGE HEADER ============================= */}
+      <Reveal as="section" className="page-header container">
+        <p className="eyebrow">Production Standards</p>
+        <h1>Technical specifications, proofing, and dependable delivery.</h1>
+      </Reveal>
+
+      {/* =============================== STEP LIST =============================== */}
+      <section className="section section--tight container">
+        <Reveal group className="step-list">
+          <div className="step">
+            <span className="step__index">01</span>
+            <div>
+              <h3>Model &amp; specs submission</h3>
+              <p>Upload your working 3D file, project description, and intended visualization.</p>
+            </div>
+          </div>
+          <div className="step">
+            <span className="step__index">02</span>
+            <div>
+              <h3>Draft proofing</h3>
+              <p>Review initial gray-scale renders within 48 hours to confirm camera angles and material choice.</p>
+            </div>
+          </div>
+          <div className="step">
+            <span className="step__index">03</span>
+            <div>
+              <h3>Material application</h3>
+              <p>We apply exact material specs, realistic lighting physics, and decor styling.</p>
+            </div>
+          </div>
+          <div className="step">
+            <span className="step__index">04</span>
+            <div>
+              <h3>Final 4K delivery</h3>
+              <p>Receive publication-ready presentation visuals ready for client approvals.</p>
+            </div>
+          </div>
+        </Reveal>
+      </section>
+
+      {/* ================================ CTA BAND ============================= */}
+      <Reveal as="section" className="cta-band container">
+        <h2>Need an overflow partner for your next design pitch?</h2>
+        <Link to="/brief" className="btn btn--primary">Request an Estimate</Link>
+      </Reveal>
+    </>
   );
 }

@@ -1,77 +1,39 @@
 import React from 'react';
-import './App.css';
+import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
+import Home from './pages/Home';
+import Services from './pages/Services';
+import Portfolio from './pages/Portfolio';
+import Contact from './pages/Contact';
+import './index.css';
 
 export default function App() {
   return (
-    <div className="container">
-      {/* Navigation */}
-      <nav className="navbar">
-        <h1 className="logo">SwiftRender Studios</h1>
-        <div className="nav-links">
-          <a href="#services">Services</a>
-          <a href="#portfolio">Portfolio</a>
-          <a href="#contact" className="btn-primary">Contact Us</a>
-        </div>
-      </nav>
-
-      {/* Hero Section */}
-      <section className="hero">
-        <h2>Professional 3D Architectural Visualization & Renderings</h2>
-        <p>Transforming 2D floor plans into photorealistic interior and exterior visual models.</p>
-        <a href="#contact" className="cta-button">Get a Quote</a>
-      </section>
-
-      {/* Services */}
-      <section id="services" className="services">
-        <h3>Our Services</h3>
-        <div className="grid">
-          <div className="card">
-            <h4>Interior Renderings</h4>
-            <p>Detailed lighting, textures, and spatial layouts for interior design revisions.</p>
+    <Router>
+      <div style={{ display: 'flex', flexDirection: 'column', minHeight: '100vh' }}>
+        <nav className="navbar">
+          <Link to="/" className="logo">SwiftRender <span>Studios</span></Link>
+          <div className="nav-links">
+            <Link to="/">Home</Link>
+            <Link to="/services">Services</Link>
+            <Link to="/portfolio">Portfolio</Link>
+            <Link to="/contact" className="btn-primary">Get a Quote</Link>
           </div>
-          <div className="card">
-            <h4>Exterior Visualizations</h4>
-            <p>High-resolution exterior modeling for residential and commercial structures.</p>
-          </div>
-          <div className="card">
-            <h4>Interactive Whiteboard Collaboration</h4>
-            <p>Seamless design revisions using real-time collaborative markup tools.</p>
-          </div>
-        </div>
-      </section>
+        </nav>
 
-      {/* Contact Form Section */}
-      <section id="contact" className="contact-section">
-        <h3>Contact SwiftRender Studios</h3>
-        <p>Submit your project details below to receive a proposal and invoice setup.</p>
-        
-        <form 
-          action="https://api.web3forms.com/submit" 
-          method="POST" 
-          className="contact-form"
-        >
-          {/* Replace ACCESS_KEY with your free key from Web3Forms */}
-          <input type="hidden" name="access_key" value="YOUR_WEB3FORMS_ACCESS_KEY" />
-          <input type="hidden" name="subject" value="New Client Inquiry - SwiftRender Studios" />
+        <main style={{ flex: 1 }}>
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/services" element={<Services />} />
+            <Route path="/portfolio" element={<Portfolio />} />
+            <Route path="/contact" element={<Contact />} />
+          </Routes>
+        </main>
 
-          <div className="form-group">
-            <label htmlFor="name">Name / Firm Name</label>
-            <input type="text" id="name" name="name" required placeholder="John Doe" />
-          </div>
-
-          <div className="form-group">
-            <label htmlFor="email">Your Email</label>
-            <input type="email" id="email" name="email" required placeholder="client@example.com" />
-          </div>
-
-          <div className="form-group">
-            <label htmlFor="message">Project Scope & Details</label>
-            <textarea id="message" name="message" rows="5" required placeholder="Tell us about your rendering project..."></textarea>
-          </div>
-
-          <button type="submit" className="submit-btn">Send Project Request</button>
-        </form>
-      </section>
-    </div>
+        <footer>
+          <p>&copy; {new Date().getFullYear()} SwiftRender Studios.</p>
+          <p style={{ fontSize: '0.8rem', color: '#94a3b8', marginTop: '0.5rem' }}>Operating out of Mukilteo, WA</p>
+        </footer>
+      </div>
+    </Router>
   );
 }

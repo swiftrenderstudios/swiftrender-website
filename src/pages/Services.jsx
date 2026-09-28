@@ -1,5 +1,5 @@
-import { Link } from 'react-router-dom';
 import Reveal from '../components/Reveal.jsx';
+import CtaBand from '../components/CtaBand.jsx';
 
 export default function Services() {
   return (
@@ -24,7 +24,7 @@ export default function Services() {
             <span className="step__index">02</span>
             <div>
               <h3>Draft proofing</h3>
-              <p>Review initial gray-scale renders within 48 hours to confirm camera angles and material choice.</p>
+              <p>Review initial draft renders within 48 hours to confirm camera angles and material choice.</p>
             </div>
           </div>
           <div className="step">
@@ -37,7 +37,7 @@ export default function Services() {
           <div className="step">
             <span className="step__index">04</span>
             <div>
-              <h3>Final 4K delivery</h3>
+              <h3>Final High-Quality delivery</h3>
               <p>Receive publication-ready presentation visuals ready for client approvals.</p>
             </div>
           </div>
@@ -45,10 +45,7 @@ export default function Services() {
       </section>
 
       {/* ================================ CTA BAND ============================= */}
-      <Reveal as="section" className="cta-band container">
-        <h2>Need an overflow partner for your next design pitch?</h2>
-        <Link to="/brief" className="btn btn--primary">Request an Estimate</Link>
-      </Reveal>
+      <CtaBand />
     </>
   );
 }

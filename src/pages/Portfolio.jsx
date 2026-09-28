@@ -1,5 +1,6 @@
-import { Link } from 'react-router-dom';
 import Reveal from '../components/Reveal.jsx';
+import CtaBand from '../components/CtaBand.jsx';
+import { IMAGES } from '../config/images.js';
 
 export default function Portfolio() {
   return (
@@ -19,8 +20,9 @@ export default function Portfolio() {
         <Reveal group className="grid grid--3">
           <article className="work-card">
             <div className="work-card__image">
+              {/* 📷 Replace this photo in src/config/images.js → workInterior */}
               <img
-                src="https://framerusercontent.com/images/weqvgB0zIYt2XuDtlrn7tmbe48.jpg"
+                src={IMAGES.workInterior}
                 alt="Modern residential living area render"
                 loading="lazy"
               />
@@ -33,8 +35,9 @@ export default function Portfolio() {
 
           <article className="work-card">
             <div className="work-card__image">
+              {/* 📷 Replace this photo in src/config/images.js → workExterior */}
               <img
-                src="https://framerusercontent.com/images/mhRoAJHNG9uZbEM8DkrAjwGp8.jpg"
+                src={IMAGES.workExterior}
                 alt="Coastal exterior facade render"
                 loading="lazy"
               />
@@ -47,8 +50,9 @@ export default function Portfolio() {
 
           <article className="work-card">
             <div className="work-card__image">
+              {/* 📷 Replace this photo in src/config/images.js → workFloorPlan */}
               <img
-                src="https://framerusercontent.com/images/iCiJuxan6KtGOe0ELMvuJ03yOk.jpg"
+                src={IMAGES.workFloorPlan}
                 alt="Commercial hospitality interior render"
                 loading="lazy"
               />
@@ -59,29 +63,10 @@ export default function Portfolio() {
             </div>
           </article>
         </Reveal>
-
-        {/* Project detail list, paired 1:1 with the cards above */}
-        <Reveal group className="work-detail-list">
-          <div className="work-detail">
-            <span className="work-detail__index">01</span>
-            <p><strong>Modern Residential Living Area</strong> — 48-hour draft turn with first-pass finish approval.</p>
-          </div>
-          <div className="work-detail">
-            <span className="work-detail__index">02</span>
-            <p><strong>Coastal Exterior Facade</strong> — Lighting and material pass for client presentation.</p>
-          </div>
-          <div className="work-detail">
-            <span className="work-detail__index">03</span>
-            <p><strong>Commercial Hospitality Interior</strong> — Exact FF&amp;E specification mapping.</p>
-          </div>
-        </Reveal>
       </section>
 
       {/* ================================ CTA BAND ============================= */}
-      <Reveal as="section" className="cta-band container">
-        <h2>Need an overflow partner for your next design pitch?</h2>
-        <Link to="/brief" className="btn btn--primary">Request an Estimate</Link>
-      </Reveal>
+      <CtaBand />
     </>
   );
 }

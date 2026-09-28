@@ -37,7 +37,7 @@
   --font-display: "Playfair Display", "Times New Roman", serif;
   --font-body: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
 
-  --fs-h1: clamp(2.25rem, 4.6vw, 4rem);
+  --fs-h1: clamp(2rem, 4vw, 3.5rem);
   --fs-h2: clamp(1.75rem, 3.2vw, 2.75rem);
   --fs-h3: clamp(1.25rem, 2vw, 1.5rem);
   --fs-lead: clamp(1.05rem, 1.4vw, 1.25rem);
@@ -107,14 +107,17 @@ h1, h2, h3 {
   color: var(--color-white);
 }
 
-h1 { font-size: var(--fs-h1); font-weight: 500; max-width: 18ch; }
-h2 { font-size: var(--fs-h2); font-weight: 500; max-width: 22ch; }
-h3 { font-size: var(--fs-h3); font-weight: 600; margin-bottom: var(--space-1); }
+/* Headings use generous max-widths plus `text-wrap: balance`, so they fill the
+   available width and break into evenly sized lines instead of narrow stacks. */
+h1 { font-size: var(--fs-h1); font-weight: 500; max-width: 26em; text-wrap: balance; }
+h2 { font-size: var(--fs-h2); font-weight: 500; max-width: 30em; text-wrap: balance; }
+h3 { font-size: var(--fs-h3); font-weight: 600; margin-bottom: var(--space-1); text-wrap: balance; }
 
-p { margin: 0 0 var(--space-2); max-width: 62ch; color: var(--color-gray); }
+/* `text-wrap: pretty` stops a single word being stranded on the last line */
+p { margin: 0 0 var(--space-2); max-width: 72ch; color: var(--color-gray); text-wrap: pretty; }
 .section--light p { color: var(--color-gray-on-light); }
 
-.lead { font-size: var(--fs-lead); color: var(--color-gray); max-width: 52ch; }
+.lead { font-size: var(--fs-lead); color: var(--color-gray); max-width: 64ch; }
 .section--light .lead { color: var(--color-gray-on-light); }
 
 .eyebrow {
@@ -178,16 +181,16 @@ p { margin: 0 0 var(--space-2); max-width: 62ch; color: var(--color-gray); }
 .site-header .container { display: flex; align-items: center; justify-content: space-between; }
 
 .brand {
-  display: flex;
-  align-items: center;
-  gap: var(--space-1);
   font-family: var(--font-display);
-  font-size: 1.15rem;
+  font-size: 1.35rem;
+  font-weight: 500;
   letter-spacing: 0.02em;
   color: var(--color-white);
+  white-space: nowrap;
 }
 
-.brand img { height: 30px; width: 30px; object-fit: contain; }
+/* "Studios" half of the wordmark */
+.brand__accent { color: var(--color-gold); }
 
 .nav-primary { display: flex; align-items: center; gap: var(--space-4); }
 
@@ -215,6 +218,12 @@ p { margin: 0 0 var(--space-2); max-width: 62ch; color: var(--color-gray); }
 }
 
 .nav-primary .btn { margin-left: var(--space-2); }
+
+/* The generic `.nav-primary a` colour rule outranks `.btn--primary`, which made
+   the button label gold-on-gold. Re-assert dark text on the gold button. */
+.nav-primary a.btn--primary,
+.nav-primary a.btn--primary:hover,
+.nav-primary a.btn--primary:focus-visible { color: var(--color-black); }
 
 /* Hamburger control — hidden on desktop, shown under the mobile breakpoint */
 .nav-toggle {
@@ -271,64 +280,112 @@ p { margin: 0 0 var(--space-2); max-width: 62ch; color: var(--color-gray); }
 .section--light .btn--ghost { color: var(--color-black); border-color: rgba(13, 13, 13, 0.25); }
 .section--light .btn--ghost:hover { border-color: var(--color-gold); color: var(--color-gold-dim); }
 
-.field { margin-bottom: var(--space-3); }
-
-.field label {
-  display: block;
-  font-size: var(--fs-label);
-  letter-spacing: 0.04em;
-  text-transform: uppercase;
-  color: var(--color-gray-on-light);
-  margin-bottom: var(--space-1);
+/* --- Brief form: dark, two-column grid that collapses to one column on mobile --- */
+.brief-form {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--space-2);
 }
 
-.field input, .field select, .field textarea {
+.brief-form__full { grid-column: 1 / -1; }
+
+.brief-form input:not([type="hidden"]),
+.brief-form select,
+.brief-form textarea {
   width: 100%;
-  padding: 0.85rem 1rem;
-  background: var(--color-white);
-  color: var(--color-black);
-  border: 1px solid rgba(13, 13, 13, 0.2);
+  padding: 1rem 1.1rem;
+  background: rgba(245, 245, 247, 0.03);
+  color: var(--color-white);
+  border: 1px solid rgba(245, 245, 247, 0.16);
   border-radius: var(--radius);
   font-family: var(--font-body);
   font-size: 1rem;
-  transition: border-color var(--dur-fast) var(--ease);
-}
-
-.field input:focus, .field select:focus, .field textarea:focus { border-color: var(--color-gold); }
-.field textarea { resize: vertical; min-height: 130px; }
-
-.type-choice { display: flex; flex-wrap: wrap; gap: var(--space-2); }
-.type-choice input { position: absolute; opacity: 0; width: 1px; height: 1px; }
-
-.type-choice label {
-  display: inline-flex;
-  align-items: center;
-  padding: 0.7rem 1.25rem;
-  border: 1px solid rgba(13, 13, 13, 0.22);
-  border-radius: var(--radius);
-  font-size: var(--fs-small);
-  letter-spacing: 0.02em;
-  text-transform: none;
-  color: var(--color-black);
-  cursor: pointer;
+  line-height: 1.4;
+  color-scheme: dark; /* light calendar icon on the date field */
   transition: border-color var(--dur-fast) var(--ease), background var(--dur-fast) var(--ease);
 }
 
-.type-choice input:checked + label { border-color: var(--color-gold); background: rgba(212, 175, 55, 0.1); color: var(--color-black); }
-.type-choice input:focus-visible + label { outline: 2px solid var(--color-gold); outline-offset: 2px; }
+.brief-form ::placeholder { color: var(--color-gray); opacity: 1; }
 
-.form-note { font-size: var(--fs-small); color: var(--color-gray-on-light); margin-top: var(--space-2); }
-.form-note a { color: var(--color-gold-dim); border-bottom: 1px solid var(--hairline-strong); }
+.brief-form input:focus,
+.brief-form select:focus,
+.brief-form textarea:focus {
+  border-color: var(--color-gold);
+  background: rgba(245, 245, 247, 0.05);
+}
 
-.form-status { font-size: var(--fs-small); margin-top: var(--space-2); min-height: 1.4em; }
-.form-status[data-state="success"] { color: #3f8f5c; }
-.form-status[data-state="error"] { color: #b3423a; }
+/* Empty date input reads as a placeholder (set by Contact.jsx state) */
+.brief-form input[type="date"].is-empty { color: var(--color-gray); }
+
+.brief-form select {
+  appearance: none;
+  padding-right: 2.75rem;
+  cursor: pointer;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23F5F5F7' stroke-width='1.6' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 1.1rem center;
+  background-size: 16px;
+}
+
+.brief-form select option { background: var(--color-charcoal); color: var(--color-white); }
+
+.brief-form textarea { min-height: 150px; resize: vertical; }
+
+.brief-form .btn { width: 100%; padding-block: 1.05rem; }
+
+.form-status { margin: 0; min-height: 1.4em; font-size: var(--fs-small); }
+.form-status[data-state="success"] { color: #7ddba0; }
+.form-status[data-state="error"] { color: #ff9d94; }
+
+.form-note { margin: 0; font-size: var(--fs-small); color: var(--color-gray); }
+.form-note a { color: var(--color-gold); border-bottom: 1px solid var(--hairline-strong); }
 
 /* --------------------------------------------------------------------------
    7. REUSABLE COMPONENTS
    -------------------------------------------------------------------------- */
 .hero { padding-top: calc(var(--header-height) + var(--space-6)); padding-bottom: var(--space-6); }
 .hero__actions { display: flex; flex-wrap: wrap; gap: var(--space-2); margin-top: var(--space-4); }
+
+/* Two-column hero: copy on the left, logo emblem on the right. The logo sits
+   on its own light panel (never behind text) so both stay fully legible. */
+.hero__layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1.65fr) minmax(0, 1fr);
+  gap: var(--space-5);
+  align-items: center;
+}
+
+.hero h1 { font-size: clamp(2rem, 3.6vw, 3.25rem); }
+
+.emblem { margin: 0; max-width: 340px; margin-left: auto; }
+
+.emblem__frame {
+  position: relative;
+  aspect-ratio: 1 / 1;
+  padding: clamp(1.25rem, 3vw, 2rem);
+  background: var(--color-white);
+  box-shadow: 0 30px 60px -30px rgba(212, 175, 55, 0.3);
+}
+
+/* Offset gold hairline frame — a drafting-sheet border around the logo */
+.emblem__frame::before {
+  content: "";
+  position: absolute;
+  inset: -14px;
+  border: 1px solid var(--hairline-strong);
+  pointer-events: none;
+}
+
+.emblem__frame img { width: 100%; height: 100%; object-fit: contain; }
+
+.emblem__caption {
+  margin-top: var(--space-3);
+  text-align: center;
+  font-size: var(--fs-label);
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--color-gray);
+}
 
 .page-header { padding-top: calc(var(--header-height) + var(--space-5)); padding-bottom: var(--space-5); }
 
@@ -353,11 +410,24 @@ p { margin: 0 0 var(--space-2); max-width: 62ch; color: var(--color-gray); }
 .step { display: grid; grid-template-columns: 90px 1fr; gap: var(--space-3); padding-block: var(--space-4); border-bottom: 1px solid var(--hairline); align-items: start; }
 .step__index { font-family: var(--font-display); font-size: 2.25rem; color: var(--color-gold); line-height: 1; }
 .step h3 { margin-bottom: var(--space-1); }
-.step p { margin-bottom: 0; }
+.step p { margin-bottom: 0; max-width: none; }
 
-.cta-band { text-align: left; padding-block: var(--space-6); border-top: 1px solid var(--hairline); }
-.cta-band .container { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: var(--space-3); }
-.cta-band h2 { margin-bottom: 0; font-size: var(--fs-h3); max-width: 34ch; }
+/* CTA band: outer <section> draws the hairline; the inner .container lays out
+   the heading and button side by side (wraps/stacks when space runs out). */
+.cta-band { border-top: 1px solid var(--hairline); }
+.cta-band__inner {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-4);
+  padding-block: var(--space-6);
+}
+.cta-band__title {
+  flex: 1 1 26rem;
+  margin: 0;
+  font-size: clamp(1.5rem, 2.6vw, 2.25rem);
+}
 
 .work-card { border: 1px solid var(--hairline); background: var(--color-charcoal); overflow: hidden; }
 .work-card__image { aspect-ratio: 4 / 3; overflow: hidden; }
@@ -374,17 +444,39 @@ p { margin: 0 0 var(--space-2); max-width: 62ch; color: var(--color-gray); }
 /* --------------------------------------------------------------------------
    8. PAGE-SPECIFIC TWEAKS
    -------------------------------------------------------------------------- */
-.brief-layout { display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-6); align-items: start; }
+/* (The brief page now reuses .page-header + .brief-form, so it needs no bespoke layout.) */
 
 /* --------------------------------------------------------------------------
    9. FOOTER
    -------------------------------------------------------------------------- */
-.site-footer { padding-block: var(--space-4); border-top: 1px solid var(--hairline); text-align: center; }
+.site-footer { padding-block: var(--space-4); border-top: 1px solid var(--hairline); }
+.site-footer__inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: var(--space-3);
+}
 .site-footer p { margin: 0; font-size: var(--fs-small); color: var(--color-gray); max-width: none; }
 
-/* Light variant used on the brief page, applied via <Footer light /> */
-.site-footer.section--light { border-top-color: rgba(13, 13, 13, 0.12); }
-.site-footer.section--light p { color: var(--color-gray-on-light); }
+/* Social icon buttons (Footer.jsx) */
+.social-links { display: flex; gap: var(--space-2); }
+
+.social-links a {
+  display: grid;
+  place-items: center;
+  width: 42px;
+  height: 42px;
+  color: var(--color-gold);
+  border: 1px solid var(--hairline-strong);
+  border-radius: var(--radius);
+  transition: background var(--dur-fast) var(--ease), color var(--dur-fast) var(--ease), border-color var(--dur-fast) var(--ease);
+}
+
+.social-links a:hover,
+.social-links a:focus-visible { background: var(--color-gold); color: var(--color-black); border-color: var(--color-gold); }
+
+.social-links svg { width: 20px; height: 20px; }
 
 /* --------------------------------------------------------------------------
    10. SCROLL-REVEAL ANIMATION
@@ -413,11 +505,6 @@ p { margin: 0 0 var(--space-2); max-width: 62ch; color: var(--color-gray); }
 /* --------------------------------------------------------------------------
    11. RESPONSIVE BREAKPOINTS
    -------------------------------------------------------------------------- */
-@media (max-width: 1024px) {
-  .grid--3 { grid-template-columns: repeat(2, 1fr); }
-  .brief-layout { grid-template-columns: 1fr; gap: var(--space-4); }
-}
-
 @media (max-width: 860px) {
   .nav-toggle { display: flex; }
 
@@ -443,11 +530,23 @@ p { margin: 0 0 var(--space-2); max-width: 62ch; color: var(--color-gray); }
   .nav-primary a.is-active { color: var(--color-gold); }
   .nav-primary a.is-active::after { display: none; }
   .nav-primary .btn { margin-left: 0; margin-top: var(--space-2); }
+  /* Keep the Submit Brief button styled as a button inside the overlay menu */
+  .nav-primary a.btn--primary {
+    font-family: var(--font-body);
+    font-size: var(--fs-small);
+    letter-spacing: 0.03em;
+    text-transform: uppercase;
+    color: var(--color-black);
+  }
 
   .grid--3, .grid--2 { grid-template-columns: 1fr; }
   .grid--steps { grid-template-columns: 1fr; }
   .handoff__images { grid-template-columns: 1fr; }
-  .cta-band .container { flex-direction: column; align-items: flex-start; }
+  .cta-band__inner { flex-direction: column; align-items: flex-start; }
+  .hero__layout { grid-template-columns: 1fr; gap: var(--space-5); }
+  .emblem { margin-left: 0; max-width: 240px; }
+  .brief-form { grid-template-columns: 1fr; }
+  .site-footer__inner { flex-direction: column; text-align: center; }
   .step { grid-template-columns: 56px 1fr; }
   .step__index { font-size: 1.75rem; }
 }
@@ -455,8 +554,6 @@ p { margin: 0 0 var(--space-2); max-width: 62ch; color: var(--color-gray); }
 @media (max-width: 560px) {
   .hero__actions { flex-direction: column; align-items: stretch; }
   .hero__actions .btn { width: 100%; }
-  .type-choice { flex-direction: column; }
-  .type-choice label { width: 100%; }
 }
 
 /* --------------------------------------------------------------------------

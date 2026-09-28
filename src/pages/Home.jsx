@@ -1,22 +1,39 @@
 import { Link } from 'react-router-dom';
 import Reveal from '../components/Reveal.jsx';
+import CtaBand from '../components/CtaBand.jsx';
+import { IMAGES } from '../config/images.js';
 
 export default function Home() {
   return (
     <>
       {/* ================================ HERO ================================ */}
-      <Reveal as="section" className="hero container">
-        <p className="eyebrow">SwiftRender Studios · Washington</p>
-        <h1>Architectural &amp; interior renderings delivered in 48–72 hours.</h1>
-        <p className="lead">
-          We act as an overflow production partner for interior designers, architects, and builders —
-          turning CAD, Revit, and SketchUp files into presentation-ready visuals.
-        </p>
-        <div className="hero__actions">
-          <Link to="/brief" className="btn btn--primary">Submit Project Brief</Link>
-          <Link to="/work" className="btn btn--ghost">Explore Portfolio</Link>
+      {/* Two columns: copy on the left, logo emblem on the right (stacks on mobile) */}
+      <section className="hero container">
+        <div className="hero__layout">
+          <Reveal className="hero__copy">
+            <p className="eyebrow">SwiftRender Studios · Washington</p>
+            <h1>Architectural &amp; Interior Renderings Delivered in 48–72 Hours.</h1>
+            <p className="lead">
+              We act as an overflow production partner for interior designers, architects, and builders.
+              Turning CAD, Revit, and SketchUp files into presentation-ready visuals.
+            </p>
+            <div className="hero__actions">
+              <Link to="/brief" className="btn btn--primary">Submit Project Brief</Link>
+              <Link to="/work" className="btn btn--ghost">Explore Portfolio</Link>
+            </div>
+          </Reveal>
+
+          <Reveal className="hero__emblem" style={{ transitionDelay: '150ms' }}>
+            <figure className="emblem">
+              <div className="emblem__frame">
+                {/* Logo file: public/logo.png (path set in src/config/images.js) */}
+                <img src={IMAGES.logo} alt="SwiftRender Studios logo" />
+              </div>
+              <figcaption className="emblem__caption">Remote 3D Visualization Partner</figcaption>
+            </figure>
+          </Reveal>
         </div>
-      </Reveal>
+      </section>
 
       <hr className="hairline" />
 
@@ -31,16 +48,18 @@ export default function Home() {
 
         <div className="handoff__images">
           <figure className="handoff__figure">
+            {/* 📷 Replace this photo in src/config/images.js → handoffSource */}
             <img
-              src="https://framerusercontent.com/images/0UwQbfZt9nzccNzXgVIBnUXHaP8.jpg"
+              src={IMAGES.handoffSource}
               alt="Untextured wireframe of a source 3D model"
               loading="lazy"
             />
             <figcaption>01 / Source model</figcaption>
           </figure>
           <figure className="handoff__figure">
+            {/* 📷 Replace this photo in src/config/images.js → handoffFinal */}
             <img
-              src="https://framerusercontent.com/images/gzMXfFDVQaTkH8RaAyOz2EeiNw.jpg"
+              src={IMAGES.handoffFinal}
               alt="Final photorealistic render with full lighting and materials"
               loading="lazy"
             />
@@ -94,7 +113,7 @@ export default function Home() {
             <span className="step__index">02</span>
             <div>
               <h3>Draft proofing</h3>
-              <p>Review initial gray-scale renders within 48 hours to confirm camera angles and material choice.</p>
+              <p>Review initial draft renders within 48 hours to confirm camera angles and material choice.</p>
             </div>
           </div>
           <div className="step">
@@ -107,7 +126,7 @@ export default function Home() {
           <div className="step">
             <span className="step__index">04</span>
             <div>
-              <h3>Final 4K delivery</h3>
+              <h3>Final High-Resolution delivery</h3>
               <p>Receive publication-ready presentation visuals ready for client approvals.</p>
             </div>
           </div>
@@ -115,10 +134,7 @@ export default function Home() {
       </section>
 
       {/* ================================ CTA BAND ============================= */}
-      <Reveal as="section" className="cta-band container">
-        <h2>Need an overflow partner for your next design pitch?</h2>
-        <Link to="/brief" className="btn btn--primary">Request an Estimate</Link>
-      </Reveal>
+      <CtaBand />
     </>
   );
 }

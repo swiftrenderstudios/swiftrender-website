@@ -53,14 +53,9 @@ export default function Header() {
   return (
     <header className={`site-header${scrolled ? ' is-scrolled' : ''}`}>
       <div className="container">
-        <Link to="/" className="brand" onClick={closeMenu}>
-          <img
-            src="https://framerusercontent.com/images/JsDbHHGrBJKbTtIJvXQfZSdBMQ.png"
-            alt="SwiftRender Studios mark"
-            width="30"
-            height="30"
-          />
-          SwiftRender Studios
+        {/* Text-only wordmark: "SwiftRender" in white, "Studios" in gold */}
+        <Link to="/" className="brand" onClick={closeMenu} aria-label="SwiftRender Studios — home">
+          SwiftRender <span className="brand__accent">Studios</span>
         </Link>
 
         <button

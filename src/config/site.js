@@ -14,8 +14,13 @@ export const SITE = {
     linkedin: 'https://www.linkedin.com/company/swiftrender-studios/',
   },
 
-  // FormSubmit.co AJAX endpoint — submissions are emailed to EMAIL.
+  // FormSubmit.co endpoint — submissions are emailed to EMAIL.
   // The very first submission triggers an activation email to that address;
   // click the link inside it once and every later submission is delivered.
-  formEndpoint: `https://formsubmit.co/ajax/${EMAIL}`,
+  //
+  // NOTE: this deliberately points at FormSubmit's classic (non-AJAX) URL.
+  // Per FormSubmit's own docs, the customer-confirmation "_autoresponse"
+  // feature does not work on AJAX submissions or on forms with reCAPTCHA
+  // disabled — see the comment above the form in pages/Contact.jsx.
+  formActionUrl: `https://formsubmit.co/${EMAIL}`,
 };

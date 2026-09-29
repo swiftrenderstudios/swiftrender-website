@@ -340,6 +340,26 @@ p { margin: 0 0 var(--space-2); max-width: 72ch; color: var(--color-gray); text-
 .form-note { margin: 0; font-size: var(--fs-small); color: var(--color-gray); }
 .form-note a { color: var(--color-gold); border-bottom: 1px solid var(--hairline-strong); }
 
+/* Date field: browsers won't let a date input take a real placeholder, so we
+   overlay our own label and hide the browser's native "mm/dd/yyyy" text via
+   .is-empty. Contact.jsx only applies .is-empty when the field is BOTH empty
+   AND not focused — the moment the visitor taps/clicks in, .is-empty (and the
+   overlay label) drops away so nothing is left drawn on top of what they're
+   typing. That's what fixes the overlapping "mm" text from mobile. */
+.field--date { position: relative; }
+
+.field--date input[type="date"].is-empty { color: transparent; }
+
+.field--date__hint {
+  position: absolute;
+  left: 1.1rem;
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--color-gray);
+  font-size: 1rem;
+  pointer-events: none;
+}
+
 /* --------------------------------------------------------------------------
    7. REUSABLE COMPONENTS
    -------------------------------------------------------------------------- */
@@ -378,14 +398,6 @@ p { margin: 0 0 var(--space-2); max-width: 72ch; color: var(--color-gray); text-
 
 .emblem__frame img { width: 100%; height: 100%; object-fit: contain; }
 
-.emblem__caption {
-  margin-top: var(--space-3);
-  text-align: center;
-  font-size: var(--fs-label);
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
-  color: var(--color-gray);
-}
 
 .page-header { padding-top: calc(var(--header-height) + var(--space-5)); padding-bottom: var(--space-5); }
 
@@ -543,8 +555,12 @@ p { margin: 0 0 var(--space-2); max-width: 72ch; color: var(--color-gray); text-
   .grid--steps { grid-template-columns: 1fr; }
   .handoff__images { grid-template-columns: 1fr; }
   .cta-band__inner { flex-direction: column; align-items: flex-start; }
+  .cta-band__title { flex: none; }
   .hero__layout { grid-template-columns: 1fr; gap: var(--space-5); }
-  .emblem { margin-left: 0; max-width: 240px; }
+  /* Logo above the headline on mobile, and truly centered (margin-left:0 alone
+     only pins it to the left edge — margin-inline:auto centers a block). */
+  .hero__emblem { order: -1; }
+  .emblem { margin-inline: auto; max-width: 220px; }
   .brief-form { grid-template-columns: 1fr; }
   .site-footer__inner { flex-direction: column; text-align: center; }
   .step { grid-template-columns: 56px 1fr; }

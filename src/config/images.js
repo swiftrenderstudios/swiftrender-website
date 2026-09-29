@@ -14,16 +14,16 @@
  *  The URLs below are the current Framer placeholders, so the site keeps
  *  working until you replace them.
  * ============================================================================
+ *
+ *  Portfolio grid photos moved to src/config/work.js (each project now
+ *  carries its own image alongside its title/tag, so adding a new project
+ *  and its photo happens in one place).
+ * ============================================================================
  */
 export const IMAGES = {
   // ── HOME PAGE · "The Handoff" section (before / after pair) ────────────────
   handoffSource: 'https://framerusercontent.com/images/0UwQbfZt9nzccNzXgVIBnUXHaP8.jpg', // ← PASTE LINK HERE  (01 / Source model)
   handoffFinal:  'https://framerusercontent.com/images/gzMXfFDVQaTkH8RaAyOz2EeiNw.jpg', // ← PASTE LINK HERE  (02 / Final atmosphere)
-
-  // ── WORK PAGE · portfolio grid (three cards, left → right) ─────────────────
-  workInterior:  'https://framerusercontent.com/images/weqvgB0zIYt2XuDtlrn7tmbe48.jpg', // ← PASTE LINK HERE  (Modern Residential Living Area)
-  workExterior:  'https://framerusercontent.com/images/mhRoAJHNG9uZbEM8DkrAjwGp8.jpg', // ← PASTE LINK HERE  (Coastal Exterior Facade)
-  workFloorPlan: 'https://framerusercontent.com/images/iCiJuxan6KtGOe0ELMvuJ03yOk.jpg', // ← PASTE LINK HERE  (Commercial Hospitality Interior)
 
   // ── HOME PAGE · hero logo (already local — file lives in /public) ──────────
   logo: '/logo.png',

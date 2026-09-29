@@ -16,7 +16,7 @@ import './App.css';
  *
  *   /        → Home        (hero, handoff, portfolio preview, pipeline, CTA)
  *   /work    → Portfolio   (selected work grid)
- *   /process → Services    (four-step production pipeline)
+ *   /process → Services    (five-step production pipeline)
  *   /brief   → Contact     (project brief form)
  */
 export default function App() {

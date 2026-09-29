@@ -1,6 +1,6 @@
 import Reveal from '../components/Reveal.jsx';
 import CtaBand from '../components/CtaBand.jsx';
-import { IMAGES } from '../config/images.js';
+import { WORK_ITEMS } from '../config/work.js';
 
 export default function Portfolio() {
   return (
@@ -16,52 +16,21 @@ export default function Portfolio() {
       </Reveal>
 
       {/* =============================== WORK GRID ============================== */}
+      {/* Cards are generated from src/config/work.js — add a new project there,
+          not here, and it shows up automatically (wraps to a new row every 3). */}
       <section className="section section--tight container">
         <Reveal group className="grid grid--3">
-          <article className="work-card">
-            <div className="work-card__image">
-              {/* 📷 Replace this photo in src/config/images.js → workInterior */}
-              <img
-                src={IMAGES.workInterior}
-                alt="Modern residential living area render"
-                loading="lazy"
-              />
-            </div>
-            <div className="work-card__body">
-              <span className="work-card__tag">Interior</span>
-              <h3>Modern Residential Living Area</h3>
-            </div>
-          </article>
-
-          <article className="work-card">
-            <div className="work-card__image">
-              {/* 📷 Replace this photo in src/config/images.js → workExterior */}
-              <img
-                src={IMAGES.workExterior}
-                alt="Coastal exterior facade render"
-                loading="lazy"
-              />
-            </div>
-            <div className="work-card__body">
-              <span className="work-card__tag">Exterior</span>
-              <h3>Coastal Exterior Facade</h3>
-            </div>
-          </article>
-
-          <article className="work-card">
-            <div className="work-card__image">
-              {/* 📷 Replace this photo in src/config/images.js → workFloorPlan */}
-              <img
-                src={IMAGES.workFloorPlan}
-                alt="Commercial hospitality interior render"
-                loading="lazy"
-              />
-            </div>
-            <div className="work-card__body">
-              <span className="work-card__tag">Floor Plans</span>
-              <h3>Commercial Hospitality Interior</h3>
-            </div>
-          </article>
+          {WORK_ITEMS.map((item) => (
+            <article className="work-card" key={item.title}>
+              <div className="work-card__image">
+                <img src={item.image} alt={item.alt} loading="lazy" />
+              </div>
+              <div className="work-card__body">
+                <span className="work-card__tag">{item.tag}</span>
+                <h3>{item.title}</h3>
+              </div>
+            </article>
+          ))}
         </Reveal>
       </section>
 

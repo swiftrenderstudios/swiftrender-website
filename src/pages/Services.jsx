@@ -37,6 +37,13 @@ export default function Services() {
           <div className="step">
             <span className="step__index">04</span>
             <div>
+              <h3>Revision cycles included</h3>
+              <p>Up to 2 rounds of minor material and lighting adjustments prior to final delivery.</p>
+            </div>
+          </div>
+          <div className="step">
+            <span className="step__index">05</span>
+            <div>
               <h3>Final High-Quality delivery</h3>
               <p>Receive publication-ready presentation visuals ready for client approvals.</p>
             </div>

@@ -29,7 +29,6 @@ export default function Home() {
                 {/* Logo file: public/logo.png (path set in src/config/images.js) */}
                 <img src={IMAGES.logo} alt="SwiftRender Studios logo" />
               </div>
-              <figcaption className="emblem__caption">Remote 3D Visualization Partner</figcaption>
             </figure>
           </Reveal>
         </div>
@@ -40,7 +39,7 @@ export default function Home() {
       {/* ============================ THE HANDOFF ============================= */}
       <Reveal as="section" className="section container">
         <p className="eyebrow">The Handoff</p>
-        <h2>Wireframe to 4K finish.</h2>
+        <h2>Wireframe to High-Quality finish.</h2>
         <p className="lead">
           From a CAD model to a fully resolved presentation render, every material, light source,
           and camera angle is considered.
@@ -99,7 +98,7 @@ export default function Home() {
       {/* ============================= THE PIPELINE ============================ */}
       <section className="section container">
         <Reveal><p className="eyebrow">The Pipeline</p></Reveal>
-        <Reveal><h2>A precise four-step handoff.</h2></Reveal>
+        <Reveal><h2>A precise five-step handoff.</h2></Reveal>
 
         <Reveal group className="step-list">
           <div className="step">
@@ -125,6 +124,13 @@ export default function Home() {
           </div>
           <div className="step">
             <span className="step__index">04</span>
+            <div>
+              <h3>Revision cycles included</h3>
+              <p>Up to 2 rounds of minor material and lighting adjustments prior to final delivery.</p>
+            </div>
+          </div>
+          <div className="step">
+            <span className="step__index">05</span>
             <div>
               <h3>Final High-Resolution delivery</h3>
               <p>Receive publication-ready presentation visuals ready for client approvals.</p>

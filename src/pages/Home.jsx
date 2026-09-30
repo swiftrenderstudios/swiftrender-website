@@ -2,6 +2,7 @@ import { Link } from 'react-router-dom';
 import Reveal from '../components/Reveal.jsx';
 import CtaBand from '../components/CtaBand.jsx';
 import { IMAGES } from '../config/images.js';
+import { RENDER_VIDEO } from '../config/video.js';
 
 export default function Home() {
   return (
@@ -65,6 +66,22 @@ export default function Home() {
             <figcaption>02 / Final atmosphere</figcaption>
           </figure>
         </div>
+
+        {/* 🎬 Placeholder — replace src in src/config/video.js → RENDER_VIDEO.src */}
+        <div className="handoff__video">
+          <p className="eyebrow">In Motion</p>
+          <h3>Watch a render come together.</h3>
+          <video
+            className="handoff__video-player"
+            src={RENDER_VIDEO.src}
+            poster={RENDER_VIDEO.poster}
+            controls
+            playsInline
+            preload="metadata"
+          >
+            Your browser does not support embedded video.
+          </video>
+        </div>
       </Reveal>
 
       <hr className="hairline" />
@@ -91,6 +108,49 @@ export default function Home() {
             <p>Fully furnished overhead perspective views tailored for pitch decks and approvals.</p>
           </article>
         </Reveal>
+
+        {/* ========================== WHO WE SERVE =========================== */}
+        <div className="audience-block">
+          <Reveal><p className="eyebrow">Who We Serve</p></Reveal>
+          <Reveal><h3>Trusted by teams across the industry.</h3></Reveal>
+
+          <Reveal group className="grid grid--2" style={{ marginTop: 'var(--space-4)' }}>
+            <article className="offer-card">
+              <h3>Architects</h3>
+              <p>To test design concepts, pitch ideas, and win municipal or client approvals before building begins.</p>
+            </article>
+            <article className="offer-card">
+              <h3>Real Estate Developers</h3>
+              <p>To pre-sell properties, attract investors, and market unbuilt residential or commercial spaces.</p>
+            </article>
+            <article className="offer-card">
+              <h3>Interior Designers</h3>
+              <p>To visualize layouts, test color schemes, and show clients realistic previews of finished rooms.</p>
+            </article>
+            <article className="offer-card">
+              <h3>Construction &amp; Home Building Firms</h3>
+              <p>To align construction teams on project goals and present realistic blueprints to buyers.</p>
+            </article>
+            <article className="offer-card">
+              <h3>Real Estate Agents</h3>
+              <p>To market listings, stage properties virtually, and help buyers visualize potential renovations.</p>
+            </article>
+            <article className="offer-card">
+              <h3>Product Manufacturers</h3>
+              <p>
+                To launch new consumer goods and create marketing images or{' '}
+                <a href="https://fortes.vision/blog/what-are-3d-rendering-services/" target="_blank" rel="noopener noreferrer">
+                  3D animations
+                </a>{' '}
+                without needing physical prototypes.
+              </p>
+            </article>
+            <article className="offer-card">
+              <h3>Marketing &amp; Advertising Agencies</h3>
+              <p>To build high-impact visual campaigns for clients in hospitality, retail, and luxury real estate.</p>
+            </article>
+          </Reveal>
+        </div>
       </section>
 
       <hr className="hairline" />

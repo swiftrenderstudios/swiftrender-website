@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { Link, useSearchParams } from 'react-router-dom';
 import Reveal from '../components/Reveal.jsx';
+import Faq from '../components/Faq.jsx';
 import { SITE } from '../config/site.js';
 
 // Options for the project-type dropdown (first one is the default selection)
@@ -65,32 +66,32 @@ export default function Contact() {
   // both empty AND not focused — see the CSS comment on .field--date for why.
   const showDateHint = !deadline && !dateFocused;
 
-  if (justSubmitted) {
-    return (
-      <Reveal as="section" className="page-header container">
-        <p className="eyebrow">Start a Project</p>
-        <h1>Thanks — your brief is in.</h1>
-        <p className="lead">
-          We&apos;ve sent a confirmation to the email you provided and will follow up with a scope,
-          schedule, and next step within 12 hours. In the meantime, feel free to browse our{' '}
-          <Link to="/work">recent work</Link>.
-        </p>
-      </Reveal>
-    );
-  }
-
   return (
     <>
       {/* ============================= PAGE HEADER ============================= */}
       <Reveal as="section" className="page-header container">
         <p className="eyebrow">Start a Project</p>
-        <h1>Submit a project brief</h1>
-        <p className="lead">
-          Share the essentials and we&apos;ll return a scope, schedule, and next step within 12 hours.
-        </p>
+        {justSubmitted ? (
+          <>
+            <h1>Thanks — your brief is in.</h1>
+            <p className="lead">
+              We&apos;ve sent a confirmation to the email you provided and will follow up with a scope,
+              schedule, and next step within 12 hours. In the meantime, feel free to browse our{' '}
+              <Link to="/work">recent work</Link>.
+            </p>
+          </>
+        ) : (
+          <>
+            <h1>Submit a project brief</h1>
+            <p className="lead">
+              Share the essentials and we&apos;ll return a scope, schedule, and next step within 12 hours.
+            </p>
+          </>
+        )}
       </Reveal>
 
       {/* ================================ BRIEF FORM =========================== */}
+      {!justSubmitted && (
       <section className="section section--tight container">
         <Reveal
           as="form"
@@ -157,6 +158,10 @@ export default function Contact() {
           </p>
         </Reveal>
       </section>
+      )}
+
+      {/* ================================ FAQ =========================== */}
+      <Faq />
     </>
   );
 }

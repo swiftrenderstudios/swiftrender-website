@@ -417,6 +417,24 @@ p { margin: 0 0 var(--space-2); max-width: 72ch; color: var(--color-gray); text-
 
 .offer-card { padding: var(--space-4) var(--space-3); border: 1px solid var(--hairline); background: var(--color-charcoal); }
 .offer-card__index { font-family: var(--font-display); font-size: 1.75rem; color: var(--color-gold); margin-bottom: var(--space-2); display: block; }
+.offer-card p a { color: var(--color-gold); border-bottom: 1px solid var(--hairline-strong); }
+.offer-card p a:hover, .offer-card p a:focus-visible { border-color: var(--color-gold); }
+
+/* "Who We Serve" sits inside the same section as the offer cards above it,
+   so it just needs breathing room, not a new hairline/section wrapper. */
+.audience-block { margin-top: var(--space-6); }
+
+/* --- Handoff video (Home page, under the source/final photo pair) --- */
+.handoff__video { margin-top: var(--space-4); }
+.handoff__video .eyebrow { margin-bottom: var(--space-2); }
+
+.handoff__video-player {
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  border: 1px solid var(--hairline);
+  background: var(--color-charcoal);
+  object-fit: cover;
+}
 
 .step-list { margin-top: var(--space-4); border-top: 1px solid var(--hairline); }
 .step { display: grid; grid-template-columns: 90px 1fr; gap: var(--space-3); padding-block: var(--space-4); border-bottom: 1px solid var(--hairline); align-items: start; }
@@ -452,6 +470,61 @@ p { margin: 0 0 var(--space-2); max-width: 72ch; color: var(--color-gray); text-
 .work-detail { display: grid; grid-template-columns: 70px 1fr; gap: var(--space-3); padding-block: var(--space-3); border-bottom: 1px solid var(--hairline); }
 .work-detail__index { font-family: var(--font-display); color: var(--color-gold); font-size: 1.25rem; }
 .work-detail p { margin-bottom: 0; color: var(--color-gray); }
+
+/* --- FAQ accordion --- */
+.faq { margin-top: var(--space-4); border-top: 1px solid var(--hairline); }
+
+.faq-item { border-bottom: 1px solid var(--hairline); }
+
+.faq-item__question {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-3);
+  padding-block: var(--space-3);
+  background: none;
+  border: none;
+  text-align: left;
+  font-family: var(--font-display);
+  font-size: 1.1rem;
+  color: var(--color-white);
+  transition: color var(--dur-fast) var(--ease);
+}
+
+.faq-item__question:hover,
+.faq-item__question:focus-visible { color: var(--color-gold); }
+
+/* Plus/minus icon built from two lines — echoes the nav-toggle's hamburger
+   lines and the hairline motif used throughout, rather than an icon font. */
+.faq-item__icon { position: relative; flex: none; width: 18px; height: 18px; }
+
+.faq-item__icon::before,
+.faq-item__icon::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  margin: auto;
+  background: var(--color-gold);
+  transition: transform var(--dur-fast) var(--ease);
+}
+
+.faq-item__icon::before { width: 100%; height: 1px; }
+.faq-item__icon::after { width: 1px; height: 100%; }
+
+/* Vertical stroke collapses away, turning the "+" into a "–" when open */
+.faq-item.is-open .faq-item__icon::after { transform: scaleY(0); }
+
+/* Height animates via 0fr → 1fr on the grid row — no JS height measurement needed */
+.faq-item__answer {
+  display: grid;
+  grid-template-rows: 0fr;
+  transition: grid-template-rows var(--dur-med) var(--ease);
+}
+
+.faq-item__answer-inner { overflow: hidden; }
+
+.faq-item__answer-inner p { margin: 0; padding-bottom: var(--space-3); max-width: 68ch; }
 
 /* --------------------------------------------------------------------------
    8. PAGE-SPECIFIC TWEAKS

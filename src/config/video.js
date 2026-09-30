@@ -2,29 +2,48 @@ import { IMAGES } from './images.js';
 
 /**
  * ============================================================================
- *  RENDER VIDEO  —  paste your video link here
+ *  RENDER VIDEO
  * ============================================================================
  *
- *  Shown on the Home page, right under "Wireframe to High-Quality finish."
+ *  Shown on the Home page, right under the day/night photo pair.
  *
- *  src    → same rule as the photos in images.js / work.js: use a *direct*
- *           file link, not a page link.
- *             ✅ https://raw.githubusercontent.com/YOUR-USER/YOUR-REPO/main/videos/showreel.mp4
- *             ❌ https://github.com/YOUR-USER/YOUR-REPO/blob/main/videos/showreel.mp4
- *           .mp4 (H.264) is the safest format for browser support.
+ *  Unlike the photos, this points at a LOCAL file in /public, not a GitHub
+ *  link — see the note below for why.
  *
- *  poster → the thumbnail shown before the video is played. Defaults to the
- *           same "final atmosphere" photo already used on the Home page, so
- *           there's nothing blank while VIDEO_URL is still a placeholder —
- *           swap it once you have a real preview frame, or leave it.
+ *  You already pushed the video to your repo at:
+ *    public/outdoor-kitchen-exterior-video.mp4
+ *  Vite serves everything in /public at the site's root automatically (this
+ *  is the same reason logo.png below works as just "/logo.png"), so that
+ *  file is already reachable at "/outdoor-kitchen-exterior-video.mp4" —
+ *  nothing else to configure. If you rename or move the file, update src
+ *  below to match.
  *
- *  NOTE: video files are much larger than photos. GitHub raw links work fine
- *  to get this running, but for the live site, a dedicated video host (e.g.
- *  Cloudflare Stream, Mux, Vimeo) or your eventual hosting provider will
- *  load faster and more reliably than hot-linking GitHub for a big file.
+ *  WHY LOCAL INSTEAD OF A GITHUB LINK:
+ *  A GitHub "blob" page URL (github.com/.../blob/...) is an HTML page, not
+ *  the actual video file, so a <video> tag can't play it directly — that's
+ *  why it looked broken. GitHub does have a true raw-file URL for any file,
+ *  video included: swap "github.com" for "raw.githubusercontent.com" and
+ *  drop "/blob/", e.g.
+ *    https://raw.githubusercontent.com/USER/REPO/main/public/file.mp4
+ *  (Right-clicking GitHub's "Download" button → "Copy link address" gives
+ *  you this same URL without downloading the file.) That would have worked
+ *  — but since you're deploying via Cloudflare Pages from this same repo,
+ *  the file is already part of your deployed site, so pointing at your own
+ *  domain is simpler and faster than fetching it from GitHub on every page
+ *  load (GitHub's raw-content servers aren't meant to be used as a CDN, and
+ *  serve video with weaker range-request support, which can mean choppier
+ *  seeking/looping).
+ *
+ *  A NOTE ON FILE SIZE: Cloudflare Pages rejects any single deployed file
+ *  over 25 MiB (their limit, not ours). A short, muted, looping clip like
+ *  this one should sit well under that after running
+ *  scripts/watermark_videos.py — but if a video ever fails to deploy, that
+ *  limit is almost certainly why. For anything larger, or if you build out
+ *  a real video library later, Cloudflare Stream (a separate product) is
+ *  the right tool — ask if you want help wiring that up when you get there.
  * ============================================================================
  */
 export const RENDER_VIDEO = {
-  src: 'REPLACE_WITH_YOUR_VIDEO_URL.mp4', // ← PASTE VIDEO LINK HERE
+  src: '/outdoor-kitchen-exterior-video.mp4',
   poster: IMAGES.handoffFinal,
 };

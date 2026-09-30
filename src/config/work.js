@@ -9,9 +9,9 @@
  *  file needs to change, and there's no limit on how many you add (they wrap
  *  into new rows three-per-row automatically).
  *
- *  image → same rule as src/config/images.js: use the *raw* GitHub link
- *    ✅ https://raw.githubusercontent.com/YOUR-USER/YOUR-REPO/main/images/photo.jpg
- *    ❌ https://github.com/YOUR-USER/YOUR-REPO/blob/main/images/photo.jpg
+ *  image → two GitHub link formats both work:
+ *    ✅ https://raw.githubusercontent.com/USER/REPO/main/path/photo.jpg
+ *    ✅ https://github.com/USER/REPO/blob/main/path/photo.jpg?raw=true
  *  tag   → the small gold label at the top of the card (e.g. "Interior")
  *  title → the card's headline
  *  alt   → a short, plain description of the photo, for screen readers/SEO
@@ -21,21 +21,39 @@
 export const WORK_ITEMS = [
   {
     tag: 'Interior',
-    title: 'Modern Residential Living Area',
-    alt: 'Modern residential living area render',
-    image: 'https://framerusercontent.com/images/weqvgB0zIYt2XuDtlrn7tmbe48.jpg', // ← PASTE LINK HERE
+    title: 'Luxury Modern Bedroom',
+    alt: 'Luxury Modern Bedroom SwiftRender Studios',
+    image: 'https://github.com/swiftrenderstudios/swiftrender-website/blob/main/public/bedroom-interior.jpg?raw=true',
+  },
+  {
+    tag: 'Interior',
+    title: 'Luxury Modern Bathroom',
+    alt: 'Luxury Modern Bathroom SwiftRender Studios',
+    image: 'https://github.com/swiftrenderstudios/swiftrender-website/blob/main/public/bathroom-interior.jpg?raw=true',
+  },
+  {
+    tag: 'Interior',
+    title: 'Luxury Modern Living Room',
+    alt: 'Luxury Modern Living Room SwiftRender Studios',
+    image: 'https://github.com/swiftrenderstudios/swiftrender-website/blob/main/public/living-room-interior.jpg?raw=true',
+  },
+  {
+    tag: 'Hospitality',
+    title: 'Modern Café & Plaza',
+    alt: 'Modern Café & Plaza SwiftRender Studios',
+    image: 'https://github.com/swiftrenderstudios/swiftrender-website/blob/main/public/hospitality-exterior.jpg?raw=true',
   },
   {
     tag: 'Exterior',
-    title: 'Coastal Exterior Facade',
-    alt: 'Coastal exterior facade render',
-    image: 'https://framerusercontent.com/images/mhRoAJHNG9uZbEM8DkrAjwGp8.jpg', // ← PASTE LINK HERE
+    title: 'Luxury Modern Outdoor Living Room',
+    alt: 'Luxury Modern Outdoor Living Room SwiftRender Studios',
+    image: 'https://github.com/swiftrenderstudios/swiftrender-website/blob/main/public/outdoor-living-exterior.jpg?raw=true',
   },
   {
-    tag: 'Floor Plans',
-    title: 'Commercial Hospitality Interior',
-    alt: 'Commercial hospitality interior render',
-    image: 'https://framerusercontent.com/images/iCiJuxan6KtGOe0ELMvuJ03yOk.jpg', // ← PASTE LINK HERE
+    tag: 'Exterior',
+    title: 'Luxury Modern Outdoor Parasol',
+    alt: 'Luxury Modern Outdoor Parasol SwiftRender Studios',
+    image: 'https://github.com/swiftrenderstudios/swiftrender-website/blob/main/public/parasol-exterior.jpg?raw=true',
   },
 
   // ── Add your next project below this line ──────────────────────────────

@@ -51,36 +51,39 @@ export default function Home() {
             {/* 📷 Replace this photo in src/config/images.js → handoffSource */}
             <img
               src={IMAGES.handoffSource}
-              alt="Untextured wireframe of a source 3D model"
+              alt="Outdoor kitchen render in daylight"
               loading="lazy"
             />
-            <figcaption>01 / Source model</figcaption>
+            <figcaption>01 / Daylight</figcaption>
           </figure>
           <figure className="handoff__figure">
             {/* 📷 Replace this photo in src/config/images.js → handoffFinal */}
             <img
               src={IMAGES.handoffFinal}
-              alt="Final photorealistic render with full lighting and materials"
+              alt="Outdoor kitchen render at night"
               loading="lazy"
             />
-            <figcaption>02 / Final atmosphere</figcaption>
+            <figcaption>02 / Nightfall</figcaption>
           </figure>
         </div>
 
-        {/* 🎬 Placeholder — replace src in src/config/video.js → RENDER_VIDEO.src */}
+        {/* Video file lives in src/config/video.js → RENDER_VIDEO.src.
+            autoPlay + loop + muted plays it on its own, on repeat, silently —
+            autoPlay only works in browsers when muted is also set. No
+            "controls" prop, so the visitor can't pause/seek/unmute it. */}
         <div className="handoff__video">
           <p className="eyebrow">In Motion</p>
-          <h3>Watch a render come together.</h3>
           <video
             className="handoff__video-player"
             src={RENDER_VIDEO.src}
             poster={RENDER_VIDEO.poster}
-            controls
+            aria-label="Looping animation of the rendered scene"
+            autoPlay
+            loop
+            muted
             playsInline
-            preload="metadata"
-          >
-            Your browser does not support embedded video.
-          </video>
+            preload="auto"
+          />
         </div>
       </Reveal>
 
@@ -137,13 +140,7 @@ export default function Home() {
             </article>
             <article className="offer-card">
               <h3>Product Manufacturers</h3>
-              <p>
-                To launch new consumer goods and create marketing images or{' '}
-                <a href="https://fortes.vision/blog/what-are-3d-rendering-services/" target="_blank" rel="noopener noreferrer">
-                  3D animations
-                </a>{' '}
-                without needing physical prototypes.
-              </p>
+              <p>To launch new consumer goods and create marketing images or 3D animations without needing physical prototypes.</p>
             </article>
             <article className="offer-card">
               <h3>Marketing &amp; Advertising Agencies</h3>

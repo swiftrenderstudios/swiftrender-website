@@ -7,6 +7,20 @@ import { SITE } from '../config/site.js';
 // Options for the project-type dropdown (first one is the default selection)
 const PROJECT_TYPES = ['Interior Visualization', 'Exterior Architecture', '3D Floor Plan'];
 
+// Options for the industry dropdown — kept in the same order as the
+// "Who We Serve" cards on the Home page. Add/edit both places together if
+// this list changes; "Other" is a catch-all not on the Home page.
+const INDUSTRIES = [
+  'Architect',
+  'Real Estate Developer',
+  'Interior Designer',
+  'Construction / Home Building Firm',
+  'Real Estate Agent',
+  'Product Manufacturer',
+  'Marketing / Advertising Agency',
+  'Other',
+];
+
 // Earliest selectable deadline = today (YYYY-MM-DD)
 const today = new Date().toISOString().split('T')[0];
 
@@ -140,9 +154,16 @@ export default function Contact() {
               <option key={type} value={type}>{type}</option>
             ))}
           </select>
-          <input type="text" inputMode="url" name="file_link" placeholder="File Link (Drive / WeTransfer)" aria-label="File Link (Drive / WeTransfer)" required />
+          <select name="industry" aria-label="Industry" defaultValue={INDUSTRIES[0]} required>
+            {INDUSTRIES.map((industry) => (
+              <option key={industry} value={industry}>{industry}</option>
+            ))}
+          </select>
 
           {/* Row 4 — full width */}
+          <input type="text" inputMode="url" name="file_link" className="brief-form__full" placeholder="File Link (Drive / WeTransfer)" aria-label="File Link (Drive / WeTransfer)" required />
+
+          {/* Row 5 — full width */}
           <textarea
             className="brief-form__full"
             name="description"

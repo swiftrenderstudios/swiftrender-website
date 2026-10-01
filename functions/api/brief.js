@@ -40,7 +40,24 @@ const REQUIRED_FIELDS = ['name', 'studio', 'email', 'deadline', 'project_type', 
 const STUDIO_EMAIL = 'info@swiftrenderstudios.com';
 
 // Must be on the domain you verify in Resend — see EMAIL_SETUP.md.
-const FROM_ADDRESS = 'SwiftRender Studios <info@swiftrenderstudios.com>';
+const FROM_ADDRESS = 'SwiftRender Studios <brief@swiftrenderstudios.com>';
+
+/**
+ * Visit https://yoursite.com/api/brief directly in a browser (that's a GET
+ * request) to check whether this endpoint is actually configured, without
+ * digging through Cloudflare's dashboard or submitting the real form. It
+ * only ever reports whether RESEND_API_KEY exists — never its value.
+ */
+export async function onRequestGet({ env }) {
+  const configured = Boolean(env.RESEND_API_KEY);
+  return json({
+    ok: true,
+    resendConfigured: configured,
+    message: configured
+      ? 'RESEND_API_KEY is set. This endpoint is ready for POST submissions from the brief form.'
+      : 'RESEND_API_KEY is NOT set on this deployment. Add it in Cloudflare Pages → your project → Settings → Environment variables (both Production and Preview), then trigger a new deployment — saving the variable alone does not update an already-built deployment.',
+  });
+}
 
 export async function onRequestPost({ request, env }) {
   try {

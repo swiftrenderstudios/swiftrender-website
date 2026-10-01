@@ -87,9 +87,15 @@ export default function Contact() {
       setDeadline('');
     } catch (error) {
       console.error('Brief submission error:', error);
+      // Show the specific reason from functions/api/brief.js when we have
+      // one (e.g. "Missing field: email", "RESEND_API_KEY is not
+      // configured") instead of only a generic message — this is what was
+      // making the real cause invisible without digging through Cloudflare's
+      // function logs.
+      const detail = error instanceof Error && error.message && error.message !== 'Submission failed' ? ` (${error.message})` : '';
       setStatus({
         state: 'error',
-        message: `Something went wrong sending your brief. Please try again or email ${SITE.email}.`,
+        message: `Something went wrong sending your brief${detail}. Please try again or email ${SITE.email}.`,
       });
     } finally {
       setSubmitting(false);

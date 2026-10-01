@@ -1,37 +1,76 @@
+import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import Reveal from '../components/Reveal.jsx';
 import CtaBand from '../components/CtaBand.jsx';
 import { IMAGES } from '../config/images.js';
 import { RENDER_VIDEO } from '../config/video.js';
+import { WORK_ITEMS } from '../config/work.js';
+
+// How long each slide stays up before crossfading to the next, in ms.
+const SLIDE_DURATION = 5000;
 
 export default function Home() {
+  const [activeSlide, setActiveSlide] = useState(0);
+
+  // Auto-advance the hero slideshow. Skips entirely (stays on the first
+  // image, no motion) if the visitor's OS has reduced-motion on, or if
+  // there's only one work item to show.
+  useEffect(() => {
+    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (prefersReducedMotion || WORK_ITEMS.length <= 1) return undefined;
+
+    const id = setInterval(() => {
+      setActiveSlide((current) => (current + 1) % WORK_ITEMS.length);
+    }, SLIDE_DURATION);
+
+    return () => clearInterval(id);
+  }, []);
+
   return (
     <>
       {/* ================================ HERO ================================ */}
-      {/* Two columns: copy on the left, logo emblem on the right (stacks on mobile) */}
-      <section className="hero container">
-        <div className="hero__layout">
-          <Reveal className="hero__copy">
-            <p className="eyebrow">SwiftRender Studios · Washington</p>
-            <h1>Architectural &amp; Interior Renderings Delivered in 48–72 Hours.</h1>
-            <p className="lead">
-              We act as an overflow production partner for interior designers, architects, and builders.
-              Turning CAD, Revit, and SketchUp files into presentation-ready visuals.
-            </p>
-            <div className="hero__actions">
-              <Link to="/brief" className="btn btn--primary">Submit Project Brief</Link>
-              <Link to="/work" className="btn btn--ghost">Explore Portfolio</Link>
-            </div>
-          </Reveal>
+      {/* Full-bleed slideshow of every project in config/work.js, crossfading
+          behind the headline. Swap which project leads by reordering work.js
+          — whatever's first (index 0) is the first slide shown. */}
+      <section className="hero-slideshow">
+        <div className="hero-slideshow__slides" aria-hidden="true">
+          {WORK_ITEMS.map((item, index) => (
+            <div
+              key={item.title}
+              className={`hero-slideshow__slide${index === activeSlide ? ' is-active' : ''}`}
+              style={{ backgroundImage: `url(${item.image})` }}
+            />
+          ))}
+        </div>
+        <div className="hero-slideshow__scrim" />
 
-          <Reveal className="hero__emblem" style={{ transitionDelay: '150ms' }}>
-            <figure className="emblem">
-              <div className="emblem__frame">
-                {/* Logo file: public/logo.png (path set in src/config/images.js) */}
-                <img src={IMAGES.logo} alt="SwiftRender Studios logo" />
-              </div>
-            </figure>
-          </Reveal>
+        <Reveal as="div" className="container hero-slideshow__content">
+          <p className="eyebrow">SwiftRender Studios · Washington</p>
+          <h1>Architectural &amp; Interior Renderings Delivered in 48–72 Hours.</h1>
+          <p className="lead">
+            We act as an overflow production partner for interior designers, architects, and builders.
+            Turning CAD, Revit, and SketchUp files into presentation-ready visuals.
+          </p>
+          <div className="hero__actions">
+            <Link to="/brief" className="btn btn--primary">Submit Project Brief</Link>
+            <Link to="/work" className="btn btn--ghost">Explore Portfolio</Link>
+          </div>
+        </Reveal>
+
+        {/* Dot indicators — also clickable, so a visitor can jump to (and
+            linger on) a specific project instead of waiting for it to cycle. */}
+        <div className="hero-slideshow__dots" role="tablist" aria-label="Featured projects">
+          {WORK_ITEMS.map((item, index) => (
+            <button
+              key={item.title}
+              type="button"
+              role="tab"
+              aria-selected={index === activeSlide}
+              aria-label={`Show ${item.title}`}
+              className={`hero-slideshow__dot${index === activeSlide ? ' is-active' : ''}`}
+              onClick={() => setActiveSlide(index)}
+            />
+          ))}
         </div>
       </section>
 

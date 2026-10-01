@@ -366,8 +366,79 @@ p { margin: 0 0 var(--space-2); max-width: 72ch; color: var(--color-gray); text-
 .hero { padding-top: calc(var(--header-height) + var(--space-6)); padding-bottom: var(--space-6); }
 .hero__actions { display: flex; flex-wrap: wrap; gap: var(--space-2); margin-top: var(--space-4); }
 
+/* --- Hero slideshow: full-bleed, crossfading through every work item --- */
+.hero-slideshow {
+  position: relative;
+  min-height: 88vh;
+  display: flex;
+  align-items: flex-end;
+  padding-top: calc(var(--header-height) + var(--space-5));
+  padding-bottom: var(--space-6);
+  overflow: hidden;
+  background: var(--color-black); /* shows briefly before the first image decodes */
+}
+
+.hero-slideshow__slides { position: absolute; inset: 0; }
+
+.hero-slideshow__slide {
+  position: absolute;
+  inset: 0;
+  background-size: cover;
+  background-position: center;
+  opacity: 0;
+  transition: opacity 1200ms ease;
+}
+
+.hero-slideshow__slide.is-active { opacity: 1; }
+
+/* Darkens the photos enough for white text to stay readable everywhere,
+   heaviest at the bottom where the headline sits. */
+.hero-slideshow__scrim {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    180deg,
+    rgba(13, 13, 13, 0.55) 0%,
+    rgba(13, 13, 13, 0.25) 40%,
+    rgba(13, 13, 13, 0.92) 100%
+  );
+}
+
+.hero-slideshow__content { position: relative; z-index: 1; }
+
+.hero-slideshow h1 {
+  color: var(--color-white);
+  max-width: 18ch;
+  font-size: clamp(2.25rem, 5vw, 3.75rem);
+}
+
+.hero-slideshow .lead { color: rgba(245, 245, 247, 0.85); }
+
+.hero-slideshow__dots {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  gap: var(--space-1);
+  margin-top: var(--space-4);
+  padding-inline: var(--container-pad);
+}
+
+.hero-slideshow__dot {
+  width: 28px;
+  height: 3px;
+  padding: 0;
+  border: none;
+  background: rgba(245, 245, 247, 0.3);
+  transition: background var(--dur-fast) var(--ease);
+}
+
+.hero-slideshow__dot.is-active { background: var(--color-gold); }
+.hero-slideshow__dot:hover, .hero-slideshow__dot:focus-visible { background: rgba(245, 245, 247, 0.6); }
+
 /* Two-column hero: copy on the left, logo emblem on the right. The logo sits
-   on its own light panel (never behind text) so both stay fully legible. */
+   on its own light panel (never behind text) so both stay fully legible.
+   No longer used by the hero itself (replaced by .hero-slideshow above) —
+   left in place in case you revert to it. */
 .hero__layout {
   display: grid;
   grid-template-columns: minmax(0, 1.65fr) minmax(0, 1fr);
@@ -633,6 +704,7 @@ p { margin: 0 0 var(--space-2); max-width: 72ch; color: var(--color-gray); text-
      only pins it to the left edge — margin-inline:auto centers a block). */
   .hero__emblem { order: -1; }
   .emblem { margin-inline: auto; max-width: 220px; }
+  .hero-slideshow { min-height: 78vh; }
   .brief-form { grid-template-columns: 1fr; }
   .site-footer__inner { flex-direction: column; text-align: center; }
   .step { grid-template-columns: 56px 1fr; }

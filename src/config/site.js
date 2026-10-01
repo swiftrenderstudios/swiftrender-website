@@ -14,13 +14,9 @@ export const SITE = {
     linkedin: 'https://www.linkedin.com/company/swiftrender-studios/',
   },
 
-  // FormSubmit.co endpoint — submissions are emailed to EMAIL.
-  // The very first submission triggers an activation email to that address;
-  // click the link inside it once and every later submission is delivered.
-  //
-  // NOTE: this deliberately points at FormSubmit's classic (non-AJAX) URL.
-  // Per FormSubmit's own docs, the customer-confirmation "_autoresponse"
-  // feature does not work on AJAX submissions or on forms with reCAPTCHA
-  // disabled — see the comment above the form in pages/Contact.jsx.
-  formActionUrl: `https://formsubmit.co/${EMAIL}`,
+  // Our own Cloudflare Pages Function — see functions/api/brief.js and
+  // EMAIL_SETUP.md. This replaced FormSubmit after repeated 500 errors
+  // there; a relative path means it's always same-origin (this site calling
+  // its own backend), so there's nothing external to go down independently.
+  formEndpoint: '/api/brief',
 };

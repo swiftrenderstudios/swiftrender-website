@@ -17,7 +17,7 @@
 export const IMAGES = {
   // ── HOME PAGE · day / night pair, right below "Wireframe to High-Quality finish." ──
   handoffSource: '/outdoor-kitchen-day-exterior.jpg',
-  handoffFinal:  'outdoor-kitchen-night-exterior.jpg',
+  handoffFinal:  '/outdoor-kitchen-night-exterior.jpg',
 
   // ── HOME PAGE · hero logo (local — file lives in /public) ──────────────────
   logo: '/logo.png',

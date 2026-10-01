@@ -16,8 +16,8 @@
  */
 export const IMAGES = {
   // ── HOME PAGE · day / night pair, right below "Wireframe to High-Quality finish." ──
-  handoffSource: 'https://github.com/swiftrenderstudios/swiftrender-website/blob/main/public/outdoor-kitchen-day-exterior.jpg?raw=true',
-  handoffFinal:  'https://github.com/swiftrenderstudios/swiftrender-website/blob/main/public/outdoor-kitchen-night-exterior.jpg?raw=true',
+  handoffSource: '/outdoor-kitchen-day-exterior.jpg',
+  handoffFinal:  'outdoor-kitchen-night-exterior.jpg',
 
   // ── HOME PAGE · hero logo (local — file lives in /public) ──────────────────
   logo: '/logo.png',

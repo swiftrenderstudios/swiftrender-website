@@ -40,7 +40,7 @@ const REQUIRED_FIELDS = ['name', 'studio', 'email', 'deadline', 'project_type', 
 const STUDIO_EMAIL = 'info@swiftrenderstudios.com';
 
 // Must be on the domain you verify in Resend — see EMAIL_SETUP.md.
-const FROM_ADDRESS = 'SwiftRender Studios <brief@swiftrenderstudios.com>';
+const FROM_ADDRESS = 'SwiftRender Studios <info@swiftrenderstudios.com>';
 
 export async function onRequestPost({ request, env }) {
   try {

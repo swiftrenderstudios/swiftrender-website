@@ -84,7 +84,7 @@ export default function Contact() {
 
       setStatus({
         state: 'success',
-        message: "Thanks — we've received your brief and will follow up within 12 hours.",
+        message: "Thank you! We've received your brief and will follow up as soon as we can. You should receive a confirmation email shortly. If you don't receive it, please check your spam folder.",
       });
       form.reset();
       setDeadline('');

@@ -14,8 +14,8 @@ export const SITE = {
     linkedin: 'https://www.linkedin.com/company/swiftrender-studios/',
   },
 
-  // Our own Cloudflare Pages Function — see functions/api/brief.js and
-  // EMAIL_SETUP.md. This replaced FormSubmit after repeated 500 errors
+  // Our own Cloudflare Worker route — see worker/index.js and
+  // wrangler.jsonc. This replaced FormSubmit after repeated 500 errors
   // there; a relative path means it's always same-origin (this site calling
   // its own backend), so there's nothing external to go down independently.
   formEndpoint: '/api/brief',

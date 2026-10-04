@@ -27,10 +27,10 @@ const today = new Date().toISOString().split('T')[0];
  * Project brief page.
  *
  * Submits via fetch() to our own backend at SITE.formEndpoint
- * (functions/api/brief.js, a Cloudflare Pages Function), so the visitor
+ * (worker/index.js, our Cloudflare Worker), so the visitor
  * stays on this page and sees an inline confirmation instead of navigating
  * away. That function emails both the studio and an auto-reply to the
- * client via Resend — see EMAIL_SETUP.md for the one-time account setup.
+ * client via Resend — see worker/index.js for the required runtime secret.
  *
  * This replaced FormSubmit after it started returning 500 errors — first on
  * a reCAPTCHA-enabled path, then again on the plain AJAX path that had
@@ -73,9 +73,12 @@ export default function Contact() {
       });
 
       const result = await response.json().catch(() => ({}));
-      const rejected = result.success === false || result.success === 'false';
 
-      if (!response.ok || rejected) {
+      // Only treat the submission as sent if our backend explicitly says so.
+      // (If the request ever lands on something that isn't the Worker — e.g.
+      // the static site returning HTML — there's no JSON `success: true`, so
+      // we show an error instead of a false "Thanks!".)
+      if (!response.ok || result.success !== true) {
         throw new Error(result.message || 'Submission failed');
       }
 
@@ -87,7 +90,7 @@ export default function Contact() {
       setDeadline('');
     } catch (error) {
       console.error('Brief submission error:', error);
-      // Show the specific reason from functions/api/brief.js when we have
+      // Show the specific reason from worker/index.js when we have
       // one (e.g. "Missing field: email", "RESEND_API_KEY is not
       // configured") instead of only a generic message — this is what was
       // making the real cause invisible without digging through Cloudflare's
@@ -125,7 +128,7 @@ export default function Contact() {
           onSubmit={handleSubmit}
           noValidate
         >
-          {/* Spam trap our own backend checks for — see functions/api/brief.js */}
+          {/* Spam trap our own backend checks for — see worker/index.js */}
           <input type="text" name="_honey" style={{ display: 'none' }} tabIndex={-1} autoComplete="off" />
 
           {/* Row 1 */}

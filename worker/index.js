@@ -202,11 +202,37 @@ function studioEmailHtml(data) {
 }
 
 function clientEmailHtml(data) {
+  const summaryRows = [
+    ['Name', data.name],
+    ['Studio / Firm', data.studio],
+    ['Email', data.email],
+    ['Project Type', data.project_type],
+    ['Industry', data.industry],
+    ['Target Completion Date', data.deadline],
+    ['File Link', data.file_link],
+    ['Project Description', data.description],
+  ];
+
+  const rowsHtml = summaryRows
+    .map(
+      ([label, value]) =>
+        `<tr>
+          <td style="padding:8px 14px;font-weight:600;border-bottom:1px solid #e5e5e5;white-space:nowrap;vertical-align:top;">${escapeHtml(label)}</td>
+          <td style="padding:8px 14px;border-bottom:1px solid #e5e5e5;white-space:pre-wrap;">${escapeHtml(value)}</td>
+        </tr>`
+    )
+    .join('');
+
   return `
-    <div style="font-family:Arial,Helvetica,sans-serif;max-width:600px;margin:0 auto;color:#0D0D0D;">
+    <div style="font-family:Arial,Helvetica,sans-serif;max-width:600px;margin:0 auto;color:#0D0D0D;line-height:1.5;">
       <h2>Thanks, ${escapeHtml(data.name)} — we've got your brief.</h2>
-      <p>We've received your project brief and will follow up with a scope, schedule, and next step within 12 hours.</p>
-      <p style="color:#57575c;font-size:13px;margin-top:32px;">SwiftRender Studios · Remote 3D Visualization Partner</p>
+      <p>We'll review it and follow up with a scope, schedule, and next step within 12 hours.</p>
+
+      <h3 style="margin-bottom:6px;">Your submission</h3>
+      <table style="width:100%;border-collapse:collapse;font-size:14px;">${rowsHtml}</table>
+
+      <p style="margin-top:24px;">Need to add something? Just reply to this email.</p>
+      <p style="color:#57575c;font-size:13px;margin-top:32px;">SwiftRender Studios</p>
     </div>
   `;
 }
